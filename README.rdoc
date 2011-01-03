@@ -1,0 +1,59 @@
+= I18n OneSky
+
+OneSky[link:http://www.oneskyapp.com] is a new service that lets developers reach a global audience by easily enabling them to translate their websites and applications to different languages through the help of the community.
+
+This gem integrates OneSky and I18n. At its most basic, it allows you to take the phrases defined under I18n's default locale and upload them to OneSky[link:http://www.oneskyapp.com] for translation by the community. Afterwards, you can download available translations and save them as Simple backend YAML files.
+
+= Using inside a Rails project
+
+In your Rails root, edit your Gemfile to include this gem:
+
+  # Gemfile
+  gem 'rails', '3.0.3'
+  ...
+  gem 'i18n-one_sky'
+
+Then tell Bundler to install:
+
+  bundle install
+
+If you haven't done so yet, log in to your account at OneSky[link:http://www.oneskyapp.com] and create a new project for this Rails app. Also, find the API key and secret which you will supply here:
+
+  rails generate one_sky:init my_api_key my_api_secret my_project
+
+This will create the configuration file config/one_sky.yml.
+
+So assuming that you already have your phrases defined for your default locale and all your views contain the ubiquitous t() methods, it's time now to submit these phrases to OneSky:
+
+  rake one_sky:upload_phrases
+
+Then ask your translators to provide the translations using the OneSky[link:http://www.oneskyapp.com] website. When they're done and a few new languages are available, download them by:
+
+  rake one_sky:download_translations
+
+This will save the translations inside config/locales/*_one_sky.yml files. You now have more languages supported and it's just a matter of pushing again to production. You can call upload and download over and over as you incrementally internationalize your site.
+
+= Using outside Rails
+
+Although I18n is commonly known as the default internationalization module for Rails, it actually is designed to be used outside Rails, too. And so is i18n-one_sky. 
+
+Install it like any regular gem:
+
+  gem install i18n-one_sky
+
+And see I18n::OneSky::SimpleClient for the methods available in Ruby.
+
+= History
+
+See CHANGELOG[link:CHANGELOG.html]
+
+= Credits
+
+See CREDITS[link:CREDITS.html]
+
+= License
+
+Copyright 2010-2011 {OneSky, Inc.}[link:http://www.oneskyapp.com]
+
+Licensed under the {MIT License}[link:MIT-LICENSE.html].
+

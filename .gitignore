@@ -1,0 +1,6 @@
+pkg/*
+rdoc/*
+*.gem
+.bundle
+spec/data/*_one_sky.yml
+*.swp

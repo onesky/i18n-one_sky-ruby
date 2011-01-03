@@ -1,0 +1,15 @@
+"en":
+  number:
+    currency:
+      format:
+        unit:      "$"
+        precision: 2
+        separator: "."
+        delimiter: ","
+        format:    "%u%n"
+  my_pages:
+    page:
+      title: "My Page Title"
+      subtitle: "My Page SubTitle"
+      footer: "A footer"
+
