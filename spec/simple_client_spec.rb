@@ -50,7 +50,7 @@ describe "SimpleClient" do
   describe "#download_translations" do
     path = [File.dirname(__FILE__), 'data'].join('/')
     it "saves translation files." do
-      @client.download_translations(path).should be_a_kind_of Array
+      @client.download_translations(path, true).should be_a_kind_of Array
       Dir.glob("#{path}/*_one_sky.yml").size.should >= 1
     end
   end
