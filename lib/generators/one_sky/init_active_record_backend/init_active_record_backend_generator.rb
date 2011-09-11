@@ -2,7 +2,7 @@ require 'i18n-one_sky'
 
 module OneSky
   module Generators
-    class InstallGenerator < Rails::Generators::Base
+    class InitActiveRecordBackendGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
       
       desc "This generator generates Rails files(initializer and database migration) to use Onesky service"

@@ -18,7 +18,7 @@ namespace :one_sky do
   desc "Download available translations from OneSky and stores into Active Record database"
   task :update_activerecord_translations do
     client = I18n::OneSky::SimpleClient.new
-    client.download_translations(:active_record => true)
+    client.download_translations(nil, true, true)
     puts "Translations downloaded and saved to database."
   end
 end

@@ -4,6 +4,9 @@ OneSky[link:http://www.oneskyapp.com] is a new service that lets developers reac
 
 This gem integrates OneSky and I18n. At its most basic, it allows you to take the phrases defined under I18n's default locale and upload them to OneSky[link:http://www.oneskyapp.com] for translation by the community. Afterwards, you can download available translations and save them as Simple backend YAML files.
 
+added Database backend storage support since version 0.0.3
+
+
 = Using inside a Rails project
 
 In your Rails root, edit your Gemfile to include this gem:
@@ -42,6 +45,27 @@ Install it like any regular gem:
   gem install i18n-one_sky
 
 And see I18n::OneSky::SimpleClient for the methods available in Ruby.
+
+= Using Database as translation storage, YAML as fallback (since version 0.0.3, Rails only)
+
+assuming that you have either run one_sky:init or configured "ONESKY_API_KEY", "ONESKY_API_SECRET" and "ONESKY_PROJECT" environment variables. The following command generates rails initializers and run db migration:
+
+  rails generate one_sky:init_active_record_backend
+
+use the upload_phrases rake command to upload your default locale to one sky server: 
+
+  rake one_sky:upload_phrases
+
+Then, instead of running one_sky:download_translations, run the following command to download and store the translations into translations database table:
+
+  rake one_sky:update_active_record_translations
+
+= Using i18n-one_sky gem in Heroku
+
+Because Heroku is read-only file system, you have to use database storage as storage backend. Either configure the "ONESKY_API_KEY", "ONESKY_API_SECRET" and "ONESKY_PROJECT" environment variables manually or use the OneSky Heroku addon.
+
+Read "Using Database as translation storage" sections for details to upload and download phrases.
+
 
 = History
 
