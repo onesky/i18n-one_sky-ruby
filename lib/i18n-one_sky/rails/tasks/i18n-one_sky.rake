@@ -8,10 +8,17 @@ namespace :one_sky do
     puts "Phrases uploaded to OneSky. Please ask your translators to... well... get translating."
   end
 
-  desc "Download available translations from OneSky."
+  desc "Download available translations from OneSky and store as yml files."
   task :download_translations do
     client = I18n::OneSky::SimpleClient.new
     client.download_translations
     puts "Translations downloaded and saved to config/locales/*_one_sky.yml files."
+  end
+  
+  desc "Download available translations from OneSky and stores into Active Record database"
+  task :update_activerecord_translations do
+    client = I18n::OneSky::SimpleClient.new
+    client.download_translations(:active_record => true)
+    puts "Translations downloaded and saved to database."
   end
 end

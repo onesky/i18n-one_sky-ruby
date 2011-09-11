@@ -3,3 +3,5 @@
 == 0.0.1 (03 Jan 2010)
 * Initial release.
 
+== 0.0.3 (12 Sep 2011)
+* allows using Active Record as I18n backend. Instead of downloading as files, translated text are stored into Active Record database.
