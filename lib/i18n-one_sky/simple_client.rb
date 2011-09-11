@@ -116,8 +116,10 @@ module I18n
       end
 
       def default_options
-        if defined? Rails
-          YAML.load_file([Rails.root.to_s, 'config', 'one_sky.yml'].join('/')).symbolize_keys
+        config_file = [Rails.root.to_s, 'config', 'one_sky.yml'].join('/')
+        
+        if defined?(Rails) && File.exists?(config_file)
+          YAML.load_file(config_file).symbolize_keys
         else
           {:api_key => ENV["ONESKY_API_KEY"], :api_secret => ENV["ONESKY_API_SECRET"], :project => ENV["ONESKY_PROJECT"]}
         end
