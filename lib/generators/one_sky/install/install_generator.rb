@@ -1,7 +1,11 @@
+require 'i18n-one_sky'
+
 module OneSky
   module Generators
     class InstallGenerator < Rails::Generators::Base
       desc "This generator generates Rails files(initializer and database migration) to use Onesky service"
+      
+      source_root File.expand_path("../templates", __FILE__)
       
       def install_onesky_active_record
         generate_initializers
@@ -11,11 +15,7 @@ module OneSky
       protected
 
       def generate_initializers
-        initializer("onesky.rb") do
-          require "i18n/onesky/translator"
-
-          I18n.backend = I18n::Backend::Chain.new(I18n::Onesky::Translator::Backend.new, I18n.backend)
-        end
+        copy_file "onesky.rb", "config/initializers/onesky.rb"
       end
       
       def generate_db_migration

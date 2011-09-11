@@ -12,16 +12,6 @@ module I18n
       module Translator
         class Backend < I18n::Backend::ActiveRecord
           include I18n::Backend::Memoize
-
-          def initialize
-            download_translations
-            super
-          end
-
-          def download_translations
-            client = I18n::OneSky::SimpleClient.new
-            client.download_translations(:active_record => true)
-          end
         end
       end
     end
