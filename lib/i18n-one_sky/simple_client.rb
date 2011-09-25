@@ -31,8 +31,8 @@ module I18n
       # If not a Rails project, manually supply the path where the I18n yml or rb files for located.
       def load_phrases(path=nil)
         backend = I18n.backend.is_a?(I18n::Backend::Chain) ? I18n.backend.backends.last : I18n.backend
-        
-        if defined? Rails
+
+        if defined?(Rails)
           backend.load_translations
         else
           raise ArgumentError, "Please supply the path where locales are located." unless path
@@ -140,13 +140,15 @@ module I18n
       end
 
       def default_options
-        config_file = [Rails.root.to_s, 'config', 'one_sky.yml'].join('/')
+        options = {:api_key => ENV["ONESKY_API_KEY"], :api_secret => ENV["ONESKY_API_SECRET"], :project => ENV["ONESKY_PROJECT"]}
         
-        if defined?(Rails) && File.exists?(config_file)
-          YAML.load_file(config_file).symbolize_keys
-        else
-          {:api_key => ENV["ONESKY_API_KEY"], :api_secret => ENV["ONESKY_API_SECRET"], :project => ENV["ONESKY_PROJECT"]}
+        if defined?(Rails)
+          config_file = [Rails.root.to_s, 'config', 'one_sky.yml'].join('/')
+
+          options = YAML.load_file(config_file).symbolize_keys if File.exists?(config_file)
         end
+        
+        options
       end
 
       def check_default_locales_match
