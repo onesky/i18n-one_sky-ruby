@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    i18n-one_sky (0.0.3)
+    i18n-one_sky (0.0.4)
       i18n (~> 0.5.0)
       i18n-active_record (~> 0.0.2)
       one_sky (~> 0.0.2)

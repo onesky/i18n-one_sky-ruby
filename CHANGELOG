@@ -5,3 +5,6 @@
 
 == 0.0.3 (12 Sep 2011)
 * allows using Active Record as I18n backend. Instead of downloading as files, translated text are stored into Active Record database.
+
+== 0.0.4 (26 Sep 2011)
+* fix the uninitialized constant issue
