@@ -69,7 +69,7 @@ module I18n
       # Outside of Rails, manually supply the path where downloaded files should be saved.
       def download_translations(path=nil, download_base_locale=false, use_active_record=false)
         if defined?(Rails)
-          path ||= [Rails.root.to_s, "config", "locales"].join("/")
+          path ||= File.join(Rails.root.to_s, "config", "locales")
         else
           raise ArgumentError, "Please supply the path where locales are to be downloaded." unless path
           path = path.chop if path =~ /\/$/
@@ -143,7 +143,7 @@ module I18n
         options = {:api_key => ENV["ONESKY_API_KEY"], :api_secret => ENV["ONESKY_API_SECRET"], :project => ENV["ONESKY_PROJECT"]}
         
         if defined?(Rails)
-          config_file = [Rails.root.to_s, 'config', 'one_sky.yml'].join('/')
+          config_file = File.join(Rails.root.to_s, 'config', 'one_sky.yml')
 
           options = YAML.load_file(config_file).symbolize_keys if File.exists?(config_file)
         end
