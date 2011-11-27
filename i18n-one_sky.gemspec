@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "i18n-one_sky/version"
+require "i18n/one_sky/version"
 
 Gem::Specification.new do |s|
   s.name        = "i18n-one_sky"
