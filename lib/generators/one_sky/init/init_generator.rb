@@ -6,7 +6,7 @@ module OneSky
       argument :api_secret, :type => :string, :desc => "The API secret you got from OneSky"
       argument :project, :type => :string, :desc => "The name of the OneSky project"
       class_option :force, :type => :boolean, :default => false, :desc => "Overwrite if config file already exists"
-      @@config_file = [Rails.root.to_s, 'config', 'one_sky.yml'].join('/')
+      @@config_file = File.join(Rails.root.to_s, 'config', 'one_sky.yml')
 
       def remove_config_file
         if File.exists? @@config_file
