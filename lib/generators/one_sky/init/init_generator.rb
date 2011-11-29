@@ -5,7 +5,9 @@ module OneSky
       argument :api_key, :type => :string, :desc => "The API key you got from OneSky"
       argument :api_secret, :type => :string, :desc => "The API secret you got from OneSky"
       argument :project, :type => :string, :desc => "The name of the OneSky project"
+      argument :platform_id, :type => :integer, :desc => "The id of the platform you want to translate for"
       class_option :force, :type => :boolean, :default => false, :desc => "Overwrite if config file already exists"
+      
       @@config_file = File.join(Rails.root.to_s, 'config', 'one_sky.yml')
 
       def remove_config_file
@@ -20,8 +22,11 @@ module OneSky
         end
       end
 
+      def config_hash
+        {"api_key" => api_key, "api_secret" => api_secret, "project" => project, "platform_id" => platform_id}
+      end
+      
       def create_config_file
-        config_hash = {"api_key" => api_key, "api_secret" => api_secret, "project" => project}
         create_file(@@config_file, config_hash.to_yaml)
         say_status("info", "config file #{@@config_file} created.", :green)
       end
