@@ -10,14 +10,14 @@ namespace :one_sky do
   end
 
   desc "Download available translations from OneSky and store as yml files."
-  task :download_translations do
+  task :download_translations => :environment do
     client = get_client
     client.download_translations_yaml(Rails.root.join("config/locales"))
     puts "Translations downloaded and saved to config/locales/*_one_sky.yml files."
   end
 
   desc "Download available translations from OneSky and stores into Active Record database"
-  task :update_activerecord_translations do
+  task :update_activerecord_translations => :environment do
     client = get_client
     client.download_translations_active_record
     puts "Translations downloaded and saved to database."
