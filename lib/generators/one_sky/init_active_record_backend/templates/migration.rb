@@ -9,6 +9,7 @@ class CreateTranslationsTable < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :translations, [:locale, :key]
   end
 
   def self.down
