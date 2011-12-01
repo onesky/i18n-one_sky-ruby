@@ -10,8 +10,11 @@ module OneSky
       source_root File.expand_path("../templates", __FILE__)
       
       def install_onesky_active_record
-        generate_initializers
+        # generate the migration first
         generate_db_migration
+        
+        # then create the initializer (else we cant migrate)
+        generate_initializers
       end
       
       def self.next_migration_number(dirname)
@@ -25,11 +28,11 @@ module OneSky
       protected
 
       def generate_initializers
-        copy_file "onesky.rb", "config/initializers/onesky.rb"
+        copy_file "active_record_backend.rb", "config/initializers/active_record_backend.rb"
       end
       
       def generate_db_migration
-        migration_template 'migration.rb', 'db/migrate/create_translations_table.rb'        
+        migration_template 'migration.rb', 'db/migrate/create_translations_table.rb'
         rake("db:migrate")
       end
     end
