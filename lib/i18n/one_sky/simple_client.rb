@@ -74,17 +74,6 @@ module I18n
       end
       memoize :platform_details
 
-      def all_translations
-        platform_locale_codes.inject({}) do |hash, locale|
-          hash.merge(translations_for(locale))
-        end
-      end
-
-      def translations_for(locale)
-        YAML.load(platform.translation.download_yaml(locale))
-      end
-      memoize :translations_for
-
       def download_translations_yaml(yaml_path)
         platform_locales.each do |locale|
           locale_code  = locale["locale"]
@@ -105,6 +94,7 @@ module I18n
       end
 
       def download_translations_active_record()
+        return unless active_record_backend
         platform_locales.each do |locale|
           locale_code  = locale["locale"]
           local_name   = locale["name"]["local"]
@@ -116,12 +106,24 @@ module I18n
           else
             yaml = platform.translation.download_yaml(locale_code)
             YAML.load(yaml).each do |code, translations|
-              I18n.backend.store_translations(locale_code, translations)
+
+              puts "loading translations #{translations.inspect}"
+              active_record_backend.store_translations(locale_code, translations)
             end
           end
         end
       end
-      
+
+      # we want to find the active record backend to store these.
+      def active_record_backend
+        if I18n.backend.is_a?(I18n::Backend::Chain)
+          I18n.backend.backends.detect{|backend| backend.is_a?(I18n::Backend::ActiveRecord)}
+        else
+          I18n.backend
+        end
+      end
+      memoize :active_record_backend
+
       # This will load the phrases defined for I18n's default locale.
       # If not a Rails project, manually supply the path where the I18n yml or rb files for located.
       def load_phrases(path=nil)
