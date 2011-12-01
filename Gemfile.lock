@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     i18n-one_sky (0.1.0)
+      activesupport
       i18n (>= 0.5.0)
       i18n-active_record (~> 0.0.2)
       one_sky (~> 0.1.0)
@@ -10,12 +11,15 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    activesupport (3.1.3)
+      multi_json (~> 1.0)
     diff-lcs (1.1.2)
     i18n (0.6.0)
     i18n-active_record (0.0.2)
       i18n (>= 0.5.0)
     json (1.6.2)
     mime-types (1.17.2)
+    multi_json (1.0.4)
     one_sky (0.1.0)
       json (>= 1.4.6)
       rest-client (~> 1.6.1)

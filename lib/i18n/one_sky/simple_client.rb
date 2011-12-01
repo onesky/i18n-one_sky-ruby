@@ -8,16 +8,14 @@ module I18n
     class SimpleClient
       include I18n::Backend::Flatten
 
+      extend ActiveSupport::Memoizable
+
       # The base OneSky project. Gives you low-level access to the API gem.
       attr_reader :client, :project, :platform
 
       # Load the client from the one_sky.yml file (installed by `rails generate one_sky:init_generator`)
-      def self.from_config()
-        self.new(load_config)
-      end
-
-      def self.config_path
-        File.join(Rails.root.to_s, 'config', 'one_sky.yml')
+      def self.from_config(config_path)
+        self.new(load_config(config_path))
       end
 
       # Load the one_sky.yml file.
@@ -29,14 +27,9 @@ module I18n
       #   project:     <%= ENV["ONESKY_PROJECT"] %>
       #   platform_id: <%= ENV["ONESKY_PLATFORM_ID"] %>
       #
-      def self.load_config
+      def self.load_config(config_path)
         require 'erb'
-        YAML::load(ERB.new(File.read(self.config_path)).result).symbolize_keys
-      end
-
-      # Are we in Rails, and does the config file exist?
-      def self.has_config?
-        defined?(Rails) && File.exist?(self.config_path)
+        YAML::load(ERB.new(File.read(config_path)).result).symbolize_keys
       end
 
       # When you initialize a client inside a Rails project, it will take the OneSky configuration variables supplied when you called rails generate one_sky:init.
@@ -71,13 +64,15 @@ module I18n
 
       # Cached call to load the locales for a platform.
       def platform_locales
-        @platform_locales ||= @platform.locales
+        @platform.locales
       end
+      memoize :platform_locales
 
       # Cached call to load the details for the platform.
       def platform_details
         @platform_details ||= @platform.details
       end
+      memoize :platform_details
 
       def all_translations
         platform_locale_codes.inject({}) do |hash, locale|
@@ -88,6 +83,7 @@ module I18n
       def translations_for(locale)
         YAML.load(platform.translation.download_yaml(locale))
       end
+      memoize :translations_for
 
       def download_translations_yaml(yaml_path)
         platform_locales.each do |locale|

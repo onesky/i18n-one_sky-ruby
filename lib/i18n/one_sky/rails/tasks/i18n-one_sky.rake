@@ -24,7 +24,7 @@ namespace :one_sky do
   end
 
   def get_client
-    I18n::OneSky::SimpleClient.from_config
+    I18n::OneSky::SimpleClient.from_config(Rails.root.join('config', 'one_sky.yml'))
   end
 
 end
