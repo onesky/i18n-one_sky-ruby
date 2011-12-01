@@ -19,7 +19,20 @@ module I18n
 
       # Load the client from the one_sky.yml file (installed by `rails generate one_sky:init_generator`)
       def self.from_config(config_path)
-        self.new(load_config(config_path))
+        if self.config_exists?(config_path)
+          self.new(load_config(config_path))
+        else
+          self.from_env
+        end
+      end
+
+      # Load the client from environment variables.
+      def self.from_env
+        self.new(
+          :api_key     => ENV["ONESKY_API_KEY"],
+          :api_secret  => ENV["ONESKY_API_SECRET"],
+          :project     => ENV["ONESKY_PROJECT"],
+          :platform_id => ENV["ONESKY_PLATFORM_ID"])
       end
 
       # Load the one_sky.yml file.
@@ -34,6 +47,11 @@ module I18n
       def self.load_config(config_path)
         require 'erb'
         YAML::load(ERB.new(File.read(config_path)).result).symbolize_keys
+      end
+
+      # check if the path exists
+      def self.config_exists?(config_path)
+        File.exist?(config_path)
       end
 
       # When you initialize a client inside a Rails project, it will take the OneSky configuration variables supplied when you called rails generate one_sky:init.
