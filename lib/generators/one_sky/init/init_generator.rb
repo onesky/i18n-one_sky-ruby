@@ -16,21 +16,31 @@ module OneSky
         if File.exists? CONFIG_PATH
           if options.force?
             say_status("warning", "config file already exists and is being overwritten.", :yellow)
-            remove_file @@config_file
+            remove_file CONFIG_PATH
           else
             say_status("error", "config file already exists. Use --force to overwrite.", :red)
-            raise "Error: OneSky config file exists."
           end
         end
       end
+
+      YAML_COMMENT = <<-YAML
+#
+# To load your OneSky details from the environment
+# just add some erb tags like this.
+#
+#   api_key:     <%= ENV["ONESKY_API_KEY"] %>
+#   api_secret:  <%= ENV["ONESKY_API_SECRET"] %>
+#   project:     <%= ENV["ONESKY_PROJECT"] %>
+#   platform_id: <%= ENV["ONESKY_PLATFORM_ID"] %>
+#
+      YAML
 
       def config_hash
         {"api_key" => api_key, "api_secret" => api_secret, "project" => project, "platform_id" => platform_id.to_i}
       end
 
       def create_config_file
-        create_file(CONFIG_PATH, config_hash.to_yaml)
-        say_status("info", "config file #{CONFIG_PATH} created.", :green)
+        create_file(CONFIG_PATH, YAML_COMMENT+config_hash.to_yaml)
       end
     end
   end
