@@ -1,3 +1,4 @@
+# Comment out this file when you want to migrate.
 require 'i18n/backend/active_record'
 
 # flatten and memoize the active record backend
