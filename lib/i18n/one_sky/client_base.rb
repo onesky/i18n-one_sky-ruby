@@ -111,20 +111,36 @@ module I18n
       def upload_phrases(phrases)
         skip, upload = phrases.partition{ |string_key, string| skip_key?(string_key) }
 
-        puts "Uploading phrases:"
-        puts upload.to_yaml
+        puts "Uploading strings:"
+        puts "  count: #{upload.length}"
         platform.translation.input_phrases(upload)
-
-        puts "Skipped phrases:"
-        puts skip.to_yaml
       end
 
       REQUIRED_KEYS = [:api_key, :api_secret, :project, :platform_id]
 
+      REQUIRED_KEYS_MESSAGE = <<-MESSAGE
+One Sky API Version 2 works differently to Version 1.
+
+Translations are now attached to a "platform", as well as a project.
+Eg. there may be one for Android, one for IOS, and one for Web.
+
+In order to authenticate for this gem, you must now specify the following;
+
+* ONE_SKY_API_KEY
+* ONE_SKY_API_SECRET
+* ONE_SKY_PROJECT      -- the name of the project
+* ONE_SKY_PLATFORM_ID  -- the numeric id of the platform
+
+Try running
+  rails generate one_sky:init
+
+again to regenerate your config.
+      MESSAGE
+
       def verify_options!(options)
         missing_keys = REQUIRED_KEYS - options.keys
         unless missing_keys.empty?
-          raise ::ArgumentError, "with One Sky api version 2, we must specify the, api key, api secret, project name, and platform id.\nTry running `rails generate one_sky:init` again."
+          raise ::ArgumentError, REQUIRED_KEYS_MESSAGE
         end
       end
 

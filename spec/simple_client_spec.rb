@@ -44,7 +44,7 @@ describe I18n::OneSky::SimpleClient do
       it "works" do
         I18n::OneSky::SimpleClient.from_config(fixture_path("config.yml"))
       end
-      
+
       it "raises if a key is missing" do
         expect{
           I18n::OneSky::SimpleClient.from_config(fixture_path("config-incomplete.yml"))

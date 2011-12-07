@@ -10,6 +10,8 @@ module I18n
       Translation = I18n::Backend::ActiveRecord::Translation
 
       def download
+        puts "Downloading translations for I18n Active Record Backend:"
+
         platform_locales.each do |locale|
           locale_code  = locale["locale"]
           local_name   = locale["name"]["local"]
@@ -23,8 +25,7 @@ module I18n
           else
             yaml = platform.translation.download_yaml(locale_code)
             YAML.load(yaml).each do |code, translations|
-              puts "Inserting translations:"
-              puts translations.inspect.to_yaml
+              puts "  locale: #{locale_code}, count: #{translations.length}"
               translations.each do |key, value|
                 Translation.locale(i18n_locale_code).delete_all(["key=?", key])
                 Translation.create!(:locale => i18n_locale_code, :key => key.to_s, :value => value)
