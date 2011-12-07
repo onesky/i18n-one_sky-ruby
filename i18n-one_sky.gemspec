@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name        = "i18n-one_sky"
   s.version     = I18n::Onesky::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Junjun Olympia", "Eddie Lau"]
-  s.email       = ["romeo.olympia@gmail.com", "tatonlto@gmail.com"]
+  s.authors     = ["Junjun Olympia", "Eddie Lau", "Matthew Rudy Jacobs"]
+  s.email       = ["romeo.olympia@gmail.com", "tatonlto@gmail.com", "matthewrudyjacobs@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/i18n-one_sky"
   s.summary     = %q{I18n extensions using OneSky -- the community-powered translation service.}
   s.description = %q{A set of I18n extensions that use OneSky. At its most basic, this allows you to easily submit translation requests to the OneSky service and download available translations as Simple backend YAML files.}
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "i18n-one_sky"
 
   s.add_dependency "i18n", ">= 0.5.0"
-  s.add_dependency "one_sky", "~> 0.0.2"
+  s.add_dependency "one_sky", "1.0.0"
   s.add_dependency 'i18n-active_record', "~> 0.0.2"
   s.add_dependency "thor", "~> 0.14.4"
 
