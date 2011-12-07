@@ -22,17 +22,17 @@ Then tell Bundler to install:
 
 If you haven't done so yet, log in to your account at OneSky[link:http://www.oneskyapp.com] and create a new project for this Rails app. Also, find the API key and secret which you will supply here:
 
-  rails generate one_sky:init my_api_key my_api_secret my_project
+  rails generate one_sky:init my_api_key my_api_secret my_project my_platform_id
 
 This will create the configuration file config/one_sky.yml.
 
 So assuming that you already have your phrases defined for your default locale and all your views contain the ubiquitous t() methods, it's time now to submit these phrases to OneSky:
 
-  rake one_sky:upload_phrases
+  rake one_sky:upload
 
 Then ask your translators to provide the translations using the OneSky[link:http://www.oneskyapp.com] website. When they're done and a few new languages are available, download them by:
 
-  rake one_sky:download_translations
+  rake one_sky:download
 
 This will save the translations inside config/locales/*_one_sky.yml files. You now have more languages supported and it's just a matter of pushing again to production. You can call upload and download over and over as you incrementally internationalize your site.
 
@@ -48,21 +48,21 @@ And see I18n::OneSky::SimpleClient for the methods available in Ruby.
 
 = Using Database as translation storage, YAML as fallback (since version 0.0.3, Rails only)
 
-assuming that you have either run one_sky:init or configured "ONESKY_API_KEY", "ONESKY_API_SECRET" and "ONESKY_PROJECT" environment variables. The following command generates rails initializers and run db migration:
+The following command generates rails initializers and run db migration:
 
   rails generate one_sky:init_active_record_backend
 
 use the upload_phrases rake command to upload your default locale to one sky server: 
 
-  rake one_sky:upload_phrases
+  rake one_sky:active_record:upload
 
-Then, instead of running one_sky:download_translations, run the following command to download and store the translations into translations database table:
+Then, instead of running one_sky:download, run the following command to download and store the translations into translations database table:
 
-  rake one_sky:update_active_record_translations
+  rake one_sky:active_record:download
 
 = Using i18n-one_sky gem in Heroku
 
-Because Heroku is read-only file system, you have to use database storage as storage backend. Either configure the "ONESKY_API_KEY", "ONESKY_API_SECRET" and "ONESKY_PROJECT" environment variables manually or use the OneSky Heroku addon.
+Because Heroku is read-only file system, you have to use database storage as storage backend. Either configure the "ONESKY_API_KEY", "ONESKY_API_SECRET", "ONESKY_PROJECT", "ONESKY_PLATFORM_ID" environment variables manually or use the OneSky Heroku addon.
 
 Read "Using Database as translation storage" sections for details to upload and download phrases.
 
