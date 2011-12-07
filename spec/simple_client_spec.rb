@@ -19,7 +19,7 @@ require 'spec_helper'
 require 'tmpdir'
 require 'yaml'
 
-describe I18n::OneSky::SimpleClient, "LIVE", :live => true do
+describe I18n::OneSky::SimpleClient do
   
   let(:onesky_api_key)    { ENV["ONESKY_API_KEY"] }
   let(:onesky_api_secret) { ENV["ONESKY_API_SECRET"] }
@@ -38,43 +38,60 @@ describe I18n::OneSky::SimpleClient, "LIVE", :live => true do
       :platform_id => platform_id)
   end
   
-  context "download" do
-
-    let(:yaml_path) { Dir.tmpdir }
-    
-    def yaml_files
-      Dir.glob(yaml_path+"/*.yml")
-    end
-
-    before(:each) do
-      # delete any pre-existing yml files.
-      File.delete(*yaml_files)
-    end
-
-    it "creates yaml files" do
-      yaml_files.should be_empty
+  
+  context "initialization" do
+    context "from file" do
+      it "works" do
+        I18n::OneSky::SimpleClient.from_config(fixture_path("config.yml"))
+      end
       
-      client.download(yaml_path)
-      
-      yaml_files.should_not be_empty
+      it "raises if a key is missing" do
+        expect{
+          I18n::OneSky::SimpleClient.from_config(fixture_path("config-incomplete.yml"))
+        }.to raise_error(ArgumentError)
+      end
     end
-    
-    it "creates a yaml file for the chinese locale." do
-      client.download(yaml_path)
-      
-      chinese_file = yaml_files.detect{|f| f.end_with?("#{chinese_locale}_one_sky.yml") }
-      yaml = YAML.load(File.read(chinese_file))
-      yaml.keys.should == [chinese_locale]
-    end
-
   end
   
-  context "upload" do
+  context "LIVE", :live => true do
+    context "download" do
+
+      let(:yaml_path) { Dir.tmpdir }
     
-    let(:yaml_path) { File.expand_path("../fixtures/files", __FILE__) }
+      def yaml_files
+        Dir.glob(yaml_path+"/*.yml")
+      end
+
+      before(:each) do
+        # delete any pre-existing yml files.
+        File.delete(*yaml_files)
+      end
+
+      it "creates yaml files" do
+        yaml_files.should be_empty
+      
+        client.download(yaml_path)
+      
+        yaml_files.should_not be_empty
+      end
     
-    it "uploads any yaml files in the path" do
-      client.upload(yaml_path)
+      it "creates a yaml file for the chinese locale." do
+        client.download(yaml_path)
+      
+        chinese_file = yaml_files.detect{|f| f.end_with?("#{chinese_locale}_one_sky.yml") }
+        yaml = YAML.load(File.read(chinese_file))
+        yaml.keys.should == [chinese_locale]
+      end
+
+    end
+  
+    context "upload" do
+    
+      let(:yaml_path) { File.expand_path("../fixtures/files", __FILE__) }
+    
+      it "uploads any yaml files in the path" do
+        client.upload(yaml_path)
+      end
     end
   end
   

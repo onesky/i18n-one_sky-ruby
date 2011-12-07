@@ -61,6 +61,8 @@ module I18n
       # * api_secret
       # * project
       def initialize(options = {})
+        verify_options!(options)
+
         @client   = ::OneSky::Client.new(options[:api_key], options[:api_secret])
         @project  = @client.project(options[:project])
         @platform = @project.platform(options[:platform_id])
@@ -115,6 +117,15 @@ module I18n
 
         puts "Skipped phrases:"
         puts skip.to_yaml
+      end
+
+      REQUIRED_KEYS = [:api_key, :api_secret, :project, :platform_id]
+
+      def verify_options!(options)
+        missing_keys = REQUIRED_KEYS - options.keys
+        unless missing_keys.empty?
+          raise ::ArgumentError, "with One Sky api version 2, we must specify the, api key, api secret, project name, and platform id.\nTry running `rails generate one_sky:init` again."
+        end
       end
 
       def verify_platform!
