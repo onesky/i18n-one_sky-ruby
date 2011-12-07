@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "i18n-one_sky/version"
+require "i18n/one_sky/version"
 
 Gem::Specification.new do |s|
   s.name        = "i18n-one_sky"
@@ -15,12 +15,12 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "i18n-one_sky"
 
   s.add_dependency "i18n", ">= 0.5.0"
-  s.add_dependency "one_sky", "1.0.0"
-  s.add_dependency 'i18n-active_record', "~> 0.0.2"
-  s.add_dependency "thor", "~> 0.14.4"
+  s.add_dependency "one_sky", "2.0.0"
+  s.add_dependency 'i18n-active_record', ">= 0.0.2"
+  s.add_dependency "activesupport", ">= 2.2.2"
 
   s.add_development_dependency "rspec", "~> 2.2.0"
-  s.add_development_dependency "bundler", "~> 1.0.0"
+  s.add_development_dependency "bundler", ">= 1.0.0"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
