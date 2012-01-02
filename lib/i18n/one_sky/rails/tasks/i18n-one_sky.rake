@@ -26,6 +26,19 @@ namespace :one_sky do
 
   end
 
+  namespace :heroku do
+
+    desc "Update the translations on heroku"
+    task :update => :environment do
+      heroku_client.download
+    end
+
+  end
+
+  def heroku_client
+    I18n::OneSky::ActiveRecordClient.from_env
+  end
+
   def active_record_client
     I18n::OneSky::ActiveRecordClient.from_config(one_sky_config)
   end
