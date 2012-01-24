@@ -1,4 +1,4 @@
-require 'active_support/memoizable'
+require 'memoist'
 
 module I18n
   module OneSky
