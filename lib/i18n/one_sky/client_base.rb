@@ -12,7 +12,7 @@ module I18n
     #   I18n::Backend::Simple
     #   I18n::Backend::ActiveRecord
     class ClientBase
-      extend ActiveSupport::Memoizable
+      extend Memoist
 
       # The base OneSky project. Gives you low-level access to the API gem.
       attr_reader :client, :project, :platform
