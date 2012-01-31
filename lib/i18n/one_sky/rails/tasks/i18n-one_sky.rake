@@ -26,7 +26,8 @@ namespace :one_sky do
 
     desc "Clear all translations from the database translation store."
     task :clear => :environment do
-      I18n::Backend::ActiveRecord::Translation.delete_all
+      count = I18n::Backend::ActiveRecord::Translation.delete_all
+      puts "deleted #{count} translations from the database."
     end
 
   end
