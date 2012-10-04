@@ -38,7 +38,7 @@ require 'yaml'
 require 'stickler'
 require 'stickler/client'
 
-namespace :gem do
+namespace :oneskygem do
   UKEN_GEM_SERVER = "http://gems.uken.com"
   def gemspec_file; Dir["*.gemspec"].first; end
   def gemspec; eval File.read(gemspec_file); end
@@ -67,4 +67,4 @@ namespace :gem do
 end
 
 desc 'Builds and pushes the gem'
-task :gem => ['gem:build', 'gem:push']
+task :oneskygem => ['oneskygem:build', 'oneskygem:push']
