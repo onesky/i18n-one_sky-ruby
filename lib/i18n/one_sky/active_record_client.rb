@@ -17,7 +17,7 @@ module I18n
 
           i18n_locale_code = locale_os_to_i18n(locale_code)
 
-          if locale_code == platform_base_locale
+          if false && locale_code == platform_base_locale
             # we skip the base
             next
           else
