@@ -15,9 +15,9 @@ namespace :one_sky do
   namespace :active_record do
     #
     # desc "Upload."
-    # task :upload => :environment do
-    #   active_record_client.upload
-    # end
+    task :upload => :environment do
+       active_record_client.upload
+    end
 
     desc "Download available translations from OneSky and stores into Active Record database."
     task :download => :environment do
