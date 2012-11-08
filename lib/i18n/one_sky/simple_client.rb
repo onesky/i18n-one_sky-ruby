@@ -52,7 +52,7 @@ module I18n
         phrases = {}
         Dir.glob("#{yaml_path}/**/*.yml").each do |path|
           hash = YAML::load(File.read(path))
-          phrases.merge!(hash[I18n.default_locale.to_s]) if hash.has_key?(I18n.default_locale.to_s)
+          phrases.deep_merge!(hash[I18n.default_locale.to_s]) if hash.has_key?(I18n.default_locale.to_s)
         end
         flatten_phrases(phrases)
       end
