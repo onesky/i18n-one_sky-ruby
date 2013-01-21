@@ -1,5 +1,5 @@
 module I18n
-  module Onesky
+  module OneSky
     if Rails::VERSION::MAJOR >= 3
       class Railtie < ::Rails::Railtie
         rake_tasks do
