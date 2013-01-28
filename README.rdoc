@@ -77,7 +77,7 @@ See CREDITS[link:CREDITS.html]
 
 = License
 
-Copyright 2010-2011 {OneSky, Inc.}[link:http://www.oneskyapp.com]
+Copyright 2010-2013 {OneSky, Inc.}[link:http://www.oneskyapp.com]
 
 Licensed under the {MIT License}[link:MIT-LICENSE.html].
 
