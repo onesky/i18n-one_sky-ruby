@@ -23,6 +23,7 @@ module I18n
           else
             yaml = platform.translation.download_yaml(locale_code)
             yaml_file_name = "#{locale_code}_one_sky.yml"
+            yaml.force_encoding('utf-8')
 
             if yaml.empty?
               puts "  locale: #{locale_code} - not downloading because it is empty (the old one would be deleted)"
