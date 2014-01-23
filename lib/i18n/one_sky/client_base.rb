@@ -109,11 +109,9 @@ module I18n
       end
 
       def upload_phrases(phrases)
-        skip, upload = phrases.partition{ |string_key, string| skip_key?(string_key) }
-
         puts "Uploading strings:"
-        puts "  count: #{upload.length}"
-        platform.translation.input_phrases(upload)
+        puts "  count: #{phrases.length}"
+        platform.translation.input_phrases(phrases)
       end
 
       REQUIRED_KEYS = [:api_key, :api_secret, :project, :platform_id]
