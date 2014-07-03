@@ -8,3 +8,6 @@
 
 == 0.0.4 (26 Sep 2011)
 * fix the uninitialized constant issue
+
+== 2.0.12 (03 Jul 2014)
+* update dependency
