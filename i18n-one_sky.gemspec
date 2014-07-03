@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "i18n-one_sky"
 
   s.add_dependency "i18n", ">= 0.5.0"
-  s.add_dependency "one_sky", "~> 2.0.0"
+  s.add_dependency "one_sky", ">= 2.0.0"
   s.add_dependency 'i18n-active_record', ">= 0.0.2"
   s.add_dependency "activesupport", ">= 2.2.2"
   s.add_dependency "memoist"
