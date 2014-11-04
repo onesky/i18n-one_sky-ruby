@@ -1,10 +1,10 @@
 = I18n OneSky
 
-OneSky[link:http://www.oneskyapp.com] is a new service that lets developers reach a global audience by easily enabling them to translate their websites and applications to different languages through the help of the community.
+OneSky[link:http://www.oneskyapp.com] is a localization platform that makes websites and apps translation simple.
 
-This gem integrates OneSky and I18n. At its most basic, it allows you to take the phrases defined under I18n's default locale and upload them to OneSky[link:http://www.oneskyapp.com] for translation by the community. Afterwards, you can download available translations and save them as Simple backend YAML files.
+This gem integrates OneSky and I18n. At its most basic, it allows you to take the phrases defined under I18n's default locale and upload them to OneSky[link:http://www.oneskyapp.com] for translation. You can then download translations and save them as Simple backend YAML files.
 
-added Database backend storage support since version 0.0.3
+Added database backend storage support since version 0.0.3
 
 
 = Using inside a Rails project
@@ -26,19 +26,19 @@ If you haven't done so yet, log in to your account at OneSky[link:http://www.one
 
 This will create the configuration file config/one_sky.yml.
 
-So assuming that you already have your phrases defined for your default locale and all your views contain the ubiquitous t() methods, it's time now to submit these phrases to OneSky:
+Once your phrases are defined for your default locale and all your views contain the ubiquitous t() methods, you can submit these phrases to OneSky:
 
   rake one_sky:upload
 
-Then ask your translators to provide the translations using the OneSky[link:http://www.oneskyapp.com] website. When they're done and a few new languages are available, download them by:
+Once the translations are ready, you can download them by:
 
   rake one_sky:download
 
-This will save the translations inside config/locales/*_one_sky.yml files. You now have more languages supported and it's just a matter of pushing again to production. You can call upload and download over and over as you incrementally internationalize your site.
+This will save the translations inside config/locales/*_one_sky.yml files. Now it's just a matter of pushing again to production.
 
 = Using outside Rails
 
-Although I18n is commonly known as the default internationalization module for Rails, it actually is designed to be used outside Rails, too. And so is i18n-one_sky. 
+i18n-one_sky is also designed to be used outside Rails. 
 
 Install it like any regular gem:
 
@@ -77,7 +77,7 @@ See CREDITS[link:CREDITS.html]
 
 = License
 
-Copyright 2010-2013 {OneSky, Inc.}[link:http://www.oneskyapp.com]
+Copyright 2010-2014 {OneSky, Inc.}[link:http://www.oneskyapp.com]
 
 Licensed under the {MIT License}[link:MIT-LICENSE.html].
 
